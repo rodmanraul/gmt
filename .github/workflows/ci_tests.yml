@@ -19,6 +19,10 @@ jobs:
     name: Linux - ${{ matrix.name }}
     runs-on: ubuntu-latest
 
+    env:
+      COASTLINEDIR: ${{ github.workspace }}/coastline
+      INSTALLDIR: ${{ github.workspace }}/gmt-install-dir
+
     strategy:
       matrix:
         include:
@@ -64,3 +68,19 @@ jobs:
           sudo snap install pngquant
           pip3 install --user sphinx==1.8.5
         if: matrix.BUILD_DOCS == true
+
+      - name: Download coastlines
+        run: bash ci/download-coastlines.sh
+
+      - name: Configure GMT
+        run: bash ci/config-gmt-unix.sh
+        env:
+          TEST: ${{ matrix.RUN_TESTS }}
+          BUILD_DOCS: ${{ matrix.BUILD_DOCS }}
+
+      - name: Compile GMT
+        run: |
+          mkdir -p build
+          cd build
+          cmake -G Ninja ..
+          cmake --build .
