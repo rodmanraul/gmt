@@ -90,6 +90,8 @@ jobs:
         run: |
           cd build
           cmake --build . --target install
+          # add GMT PATH to bin
+          echo "::add-path::${INSTALLDIR}/bin"
 
       - name: Check a few simple commands
         run: |
