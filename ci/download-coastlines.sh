@@ -3,10 +3,12 @@
 
 # General settings:
 EXT="tar.gz"
-GSHHG="gshhg-gmt-2.3.7"
-DCW="dcw-gmt-1.1.4"
+GSHHG_VERSION="2.3.7"
+DCW_VERSION="1.1.4"
 MD5_GSHHG=8ee2653f9daf84d49fefbf990bbfa1e7
 MD5_DCW=4f30857a8b12af0f910222fceb591538
+GSHHG="gshhg-gmt-${GSHHG_VERSION}"
+DCW="dcw-gmt-${DCW_VERSION}"
 
 # Used for checking the downloaded files:
 check_md5 ()
@@ -34,7 +36,7 @@ echo ""
 echo "Downloading and unpacking GSHHG"
 echo "================================================================================"
 # download when md5sums don't match:
-check_md5 $MD5_GSHHG $GSHHG.$EXT || curl -L -O --retry 10 "https://mirrors.ustc.edu.cn/gmt/$GSHHG.$EXT"
+check_md5 $MD5_GSHHG $GSHHG.$EXT || curl -L -O --retry 10 "https://github.com/GenericMappingTools/gshhg-gmt/releases/download/${GSHHG_VERSION}/$GSHHG.$EXT"
 check_md5 $MD5_GSHHG $GSHHG.$EXT
 tar xzf $GSHHG.$EXT
 mv $GSHHG $COASTLINEDIR/gshhg
@@ -44,7 +46,7 @@ echo ""
 echo "Downloading and unpacking DCW"
 echo "================================================================================"
 # download when md5sums don't match:
-check_md5 $MD5_DCW $DCW.$EXT || curl -L -O --retry 10 "https://mirrors.ustc.edu.cn/gmt/$DCW.$EXT"
+check_md5 $MD5_DCW $DCW.$EXT || curl -L -O --retry 10 "https://github.com/GenericMappingTools/dcw-gmt/releases/download/${DCW_VERSION}/$DCW.$EXT"
 check_md5 $MD5_DCW $DCW.$EXT
 tar xzf $DCW.$EXT
 mv $DCW $COASTLINEDIR/dcw
