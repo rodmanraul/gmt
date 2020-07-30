@@ -16,24 +16,27 @@ on:
 
 jobs:
   linux:
-    name: 'Linux'
+    name: Linux - ${{ matrix.name }}
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         include:
           # Compile only
-          - BUILD_DOCS  : false
+          - name: Compile only
+            BUILD_DOCS  : false
             DEPLOY_DOCS : false
             PACKAGE     : false
             TEST        : false
           # Build docs + Deploy docs + Package
-          - BUILD_DOCS  : true
+          - name: Build docs + Deploy docs + Package
+            BUILD_DOCS  : true
             DEPLOY_DOCS : true
             PACKAGE     : true
             TEST        : false
           # Test
-          - BUILD_DOCS  : false
+          - name: Tests
+            BUILD_DOCS  : false
             DEPLOY_DOCS : false
             PACKAGE     : false
             TEST        : true
