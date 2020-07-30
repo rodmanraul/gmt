@@ -24,6 +24,7 @@ jobs:
       INSTALLDIR: ${{ github.workspace }}/gmt-install-dir
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           # Compile only
