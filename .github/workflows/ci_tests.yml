@@ -124,3 +124,10 @@ jobs:
           gmt begin && gmt coast -R0/10/0/10 -JM6i -Ba -Ggray -ENG+p1p,blue -Vd && gmt end
           #gmt grdimage @earth_relief_01d -JH10c -Baf -pdf map
           gmt earthtide -T2018-06-18T12:00:00 -Gsolid_tide_up.grd
+
+      - name: Run full tests
+        run: |
+          set -x -e
+          cd build
+          ctest --output-on-failure --force-new-ctest-process -j4 --timeout 480
+        if: matrix.RUN_TESTS == true
