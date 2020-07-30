@@ -19,6 +19,25 @@ jobs:
     name: 'Linux'
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        include:
+          # Compile only
+          - BUILD_DOCS  : false
+            DEPLOY_DOCS : false
+            PACKAGE     : false
+            TEST        : false
+          # Build docs + Deploy docs + Package
+          - BUILD_DOCS  : true
+            DEPLOY_DOCS : true
+            PACKAGE     : true
+            TEST        : false
+          # Test
+          - BUILD_DOCS  : false
+            DEPLOY_DOCS : false
+            PACKAGE     : false
+            TEST        : true
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.1
